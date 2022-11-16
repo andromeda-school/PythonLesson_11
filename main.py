@@ -1,25 +1,69 @@
-import random
-import emoji
+from tkinter import *
 
+bg_purple = "#D48CEE"
+bg_white = "#F5E5FB"
+block_size = 50
+WIDTH = block_size * 8
+HEIGHT = block_size * 8
 
-size = int(input("Введите размер ёлочки: "))
-k = 1.0 - float(input("Введите шанс игрушек: "))
+window = Tk()
+window.title("Первое приложение")
+window.geometry(str(WIDTH)+"x"+str(HEIGHT)) # 500x500
+window.config(bg=bg_purple)
 
-toys = [":tangerine:", ":rocket:",
-        ":collision:", ":Santa_Claus:",
-        ":large_blue_diamond:", ":orange_heart:",
-        ":fireworks:", ":cookie:"]
+canvas = Canvas(
+    window,
+    width=WIDTH,
+    height=HEIGHT,
+    bg=bg_white
+)
+canvas.pack()
 
-for i in range(size):
-    if i == 0:
-        print(" "*(size-1), emoji.emojize(":star:"))
+number = 1
+
+# canvas.create_text(
+#     WIDTH/2,
+#     HEIGHT/2,
+#     fill="black",
+#     font="Calibri 18",
+#     text=str(number)
+# )
+for i in range(20):
+    if number>10:
+        canvas.create_text(
+            (block_size / 2) * 9 + 10.0,
+            (HEIGHT / 2) + (25.0 * ((i%10)+1)),
+            fill="black",
+            font="Calibri 18",
+            text=str(number)
+        )
     else:
-        tree_str = " "*(size-i)+" "
-        for j in range(i):
-            if random.random() > k:
-                tree_str = tree_str + random.choice(toys)
-            else:
-                tree_str = tree_str + ":green_circle:"
+        canvas.create_text(
+            (block_size / 2) * i + 10.0,
+            HEIGHT / 2,
+            fill="black",
+            font="Calibri 18",
+            text=str(number)
+        )
+    number = number + 1
 
-        print(emoji.emojize(tree_str))
-print(" "*(size-1), emoji.emojize(":brown_square:"))
+
+# white_turn = True
+# for i in range(8):
+#     for j in range(8):
+#         pos_x = block_size * j
+#         pos_y = block_size * i
+#         if white_turn:
+#             canvas.create_rectangle(
+#                 pos_x, pos_y,
+#                 pos_x + block_size, pos_y + block_size,
+#                 fill="white")
+#         else:
+#             canvas.create_rectangle(
+#                 pos_x, pos_y,
+#                 pos_x + block_size, pos_y + block_size,
+#                 fill="black")
+#         white_turn = not white_turn
+#     white_turn = not white_turn
+
+window.mainloop()
